@@ -1,0 +1,10 @@
+!include IOPBTCONF
+DECI2
+DECI2HSYN
+DECI2DRS
+DECI2FILE
+DECI2KPRT
+DECI2LOAD
+#This has to be here, otherwise there will be a problem with the SIF being "down".
+DEV9
+DECI2DRU

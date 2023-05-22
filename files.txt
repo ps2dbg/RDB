@@ -1,0 +1,7 @@
+RDB		- Basic RDB, based off the TDB Startup Card's binaries.
+RDB-UIF		- RDB with a different host interface, known as the Universal InterFace (UIF).
+			Universal as it works on all PlayStation 2 consoles that have a network adaptor.
+thmon		- Simple thread monitor, based off an early version from the System 246 ROM.
+			Not compatible with late IOP kernels.
+
+Note: the DECI2 reset command can only be used if the TDB Startup Card's custom kernel is used.
