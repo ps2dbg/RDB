@@ -6,5 +6,4 @@
 #define DEBUG_PRINTF(args...)
 #endif
 
-#define MAX_FRAME_SIZE	1514
-
+#define MAX_FRAME_SIZE 1514

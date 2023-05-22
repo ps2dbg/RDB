@@ -21,70 +21,73 @@
 // Definitions for device drivers
 
 /* Device types.  */
-#define IOP_DT_CHAR	0x01
-#define IOP_DT_CONS	0x02
-#define IOP_DT_BLOCK	0x04
-#define IOP_DT_RAW	0x08
-#define IOP_DT_FS	0x10
+#define IOP_DT_CHAR  0x01
+#define IOP_DT_CONS  0x02
+#define IOP_DT_BLOCK 0x04
+#define IOP_DT_RAW   0x08
+#define IOP_DT_FS    0x10
 /* Added from iomanX; Supported by newer IOMAN modules */
-#define IOP_DT_FSEXT	0x10000000	/* Supports calls after chstat().  */
+#define IOP_DT_FSEXT 0x10000000 /* Supports calls after chstat().  */
 
 /* File objects passed to driver operations.  */
-typedef struct _iop_file {
-	int	mode;		/* File open mode.  */
-	int	unit;		/* HW device unit number.  */
-	struct _iop_device *device; /* Device driver.  */
-	void	*privdata;	/* The device driver can use this however it
-				   wants.  */
+typedef struct _iop_file
+{
+    int mode;                   /* File open mode.  */
+    int unit;                   /* HW device unit number.  */
+    struct _iop_device *device; /* Device driver.  */
+    void *privdata;             /* The device driver can use this however it
+                           wants.  */
 } iop_file_t;
 
-typedef struct _iop_device {
-	const char *name;
-	unsigned int type;
-	unsigned int version;	/* Not so sure about this one.  */
-	const char *desc;
-	struct _iop_device_ops *ops;
+typedef struct _iop_device
+{
+    const char *name;
+    unsigned int type;
+    unsigned int version; /* Not so sure about this one.  */
+    const char *desc;
+    struct _iop_device_ops *ops;
 } iop_device_t;
 
-typedef struct _iop_device_ops {
-	int	(*init)(iop_device_t *);
-	int	(*deinit)(iop_device_t *);
-	int	(*format)(iop_file_t *, ...);
-	int	(*open)(iop_file_t *, const char *, int, int mode);
-	int	(*close)(iop_file_t *);
-	int	(*read)(iop_file_t *, void *, int);
-	int	(*write)(iop_file_t *, const void *, int);
-	int	(*lseek)(iop_file_t *, long, int);
-	int	(*ioctl)(iop_file_t *, long, void *);
-	int	(*remove)(iop_file_t *, const char *);
-	int	(*mkdir)(iop_file_t *, const char *, int mode);
-	int	(*rmdir)(iop_file_t *, const char *);
-	int	(*dopen)(iop_file_t *, const char *);
-	int	(*dclose)(iop_file_t *);
-	int	(*dread)(iop_file_t *, io_dirent_t *); /* changed *void to *io_dirent_t */
-	int	(*getstat)(iop_file_t *, const char *,io_stat_t *); /* changed *void to *io_stat_t */
-	int	(*chstat)(iop_file_t *, const char *, io_stat_t*, unsigned int);
-//RA NB: The table should be extended here, but I'm unsure of the exact specs
-//RA NB: Functions should correspond to iomanX, but may differ in arguments
-//RA NB: For such cases the definitions here may be wrong, being iomanX copies
-	/* Extended ops start here.  */
-	int	(*rename)(iop_file_t *, const char *, const char *);
-	int	(*chdir)(iop_file_t *, const char *);
-	int	(*sync)(iop_file_t *, const char *, int);
-	int	(*mount)(iop_file_t *, const char *, const char *, int, void *, unsigned int);
-	int	(*umount)(iop_file_t *, const char *);
-	int	(*lseek64)(iop_file_t *, long long, int);
-	int	(*devctl)(iop_file_t *, const char *, int, void *, unsigned int, void *, unsigned int);
-	int	(*symlink)(iop_file_t *, const char *, const char *);
-	int	(*readlink)(iop_file_t *, const char *, char *, unsigned int);
-	int	(*ioctl2)(iop_file_t *, int, void *, unsigned int, void *, unsigned int);
+typedef struct _iop_device_ops
+{
+    int (*init)(iop_device_t *);
+    int (*deinit)(iop_device_t *);
+    int (*format)(iop_file_t *, ...);
+    int (*open)(iop_file_t *, const char *, int, int mode);
+    int (*close)(iop_file_t *);
+    int (*read)(iop_file_t *, void *, int);
+    int (*write)(iop_file_t *, const void *, int);
+    int (*lseek)(iop_file_t *, long, int);
+    int (*ioctl)(iop_file_t *, long, void *);
+    int (*remove)(iop_file_t *, const char *);
+    int (*mkdir)(iop_file_t *, const char *, int mode);
+    int (*rmdir)(iop_file_t *, const char *);
+    int (*dopen)(iop_file_t *, const char *);
+    int (*dclose)(iop_file_t *);
+    int (*dread)(iop_file_t *, io_dirent_t *);               /* changed *void to *io_dirent_t */
+    int (*getstat)(iop_file_t *, const char *, io_stat_t *); /* changed *void to *io_stat_t */
+    int (*chstat)(iop_file_t *, const char *, io_stat_t *, unsigned int);
+    // RA NB: The table should be extended here, but I'm unsure of the exact specs
+    // RA NB: Functions should correspond to iomanX, but may differ in arguments
+    // RA NB: For such cases the definitions here may be wrong, being iomanX copies
+    /* Extended ops start here.  */
+    int (*rename)(iop_file_t *, const char *, const char *);
+    int (*chdir)(iop_file_t *, const char *);
+    int (*sync)(iop_file_t *, const char *, int);
+    int (*mount)(iop_file_t *, const char *, const char *, int, void *, unsigned int);
+    int (*umount)(iop_file_t *, const char *);
+    int (*lseek64)(iop_file_t *, long long, int);
+    int (*devctl)(iop_file_t *, const char *, int, void *, unsigned int, void *, unsigned int);
+    int (*symlink)(iop_file_t *, const char *, const char *);
+    int (*readlink)(iop_file_t *, const char *, char *, unsigned int);
+    int (*ioctl2)(iop_file_t *, int, void *, unsigned int, void *, unsigned int);
 } iop_device_ops_t;
 
 //---------------------------------------------------------------------------
 // Macros for start and end of imports table
 
 #define ioman_IMPORTS_start DECLARE_IMPORT_TABLE(ioman, 1, 1)
-#define ioman_IMPORTS_end END_IMPORT_TABLE
+#define ioman_IMPORTS_end   END_IMPORT_TABLE
 
 //---------------------------------------------------------------------------
 // Functions valid for all IOMAN modules, including those in the PS2 BIOS ROM
@@ -110,8 +113,8 @@ int DelDrv(const char *name);
 
 //---------------------------------------------------------------------------
 // Functions valid for all iomanX, but also present in some IOMAN modules
-//RA NB: These are mostly copied from iomanX.h, so some arguments may be wrong
-//RA NB: but I have corrected the argument of 'mkdir' to ioman standard
+// RA NB: These are mostly copied from iomanX.h, so some arguments may be wrong
+// RA NB: but I have corrected the argument of 'mkdir' to ioman standard
 
 int ioctl(int fd, long cmd, void *param);
 #define I_ioctl DECLARE_IMPORT(9, ioctl)
@@ -138,12 +141,12 @@ int chstat(const char *name, void *stat, unsigned int statmask);
 // I'm commenting it out, but keeping it in this form for information only.
 // The function really used is defined further above.
 ///* This can take take more than one form.  */
-//int format(const char *dev, const char *blockdev, void *arg, size_t arglen);
+// int format(const char *dev, const char *blockdev, void *arg, size_t arglen);
 //#define I_format DECLARE_IMPORT(18, format)
 
 //---------------------------------------------------------------------------
 // Functions valid for newer iomanX, but also in some new SCE IOMAN modules
-//RA NB: These are mostly copied from iomanX.h, so some arguments may be wrong
+// RA NB: These are mostly copied from iomanX.h, so some arguments may be wrong
 
 /* The newer calls - these are NOT supported by the older IOMAN.  */
 int rename(const char *old, const char *new);

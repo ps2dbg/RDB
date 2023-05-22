@@ -9,22 +9,22 @@
 */
 
 #ifndef IOP_PS2IP_INTERNAL_H
-#define	IOP_PS2IP_INTERNAL_H
+#define IOP_PS2IP_INTERNAL_H
 
 #include <types.h>
 
 #ifdef DEBUG
-#define	dbgprintf(args...)	printf(args)
+#define dbgprintf(args...) printf(args)
 #else
-#define	dbgprintf(args...)
+#define dbgprintf(args...)
 #endif
 
-#define netif_dhcp_data(netif) ((struct dhcp*)(netif)->client_data[LWIP_NETIF_CLIENT_DATA_INDEX_DHCP])
+#define netif_dhcp_data(netif) ((struct dhcp *)(netif)->client_data[LWIP_NETIF_CLIENT_DATA_INDEX_DHCP])
 
 int InitPS2IP(const unsigned char *ip_address, const unsigned char *subnet_mask, const unsigned char *gateway);
-void SMapLowLevelInput(struct pbuf* pBuf);
+void SMapLowLevelInput(struct pbuf *pBuf);
 void ps2ip_InitTimer(void);
 void PS2IPLinkStateUp(void);
 void PS2IPLinkStateDown(void);
 
-#endif	// !defined(IOP_PS2IP_INTERNAL_H)
+#endif // !defined(IOP_PS2IP_INTERNAL_H)

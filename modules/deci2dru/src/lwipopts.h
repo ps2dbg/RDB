@@ -1,28 +1,28 @@
 /*	If changes are made to this file, please update the defined
-	values at the bottom of common/include/tcpip.h too.	*/
+    values at the bottom of common/include/tcpip.h too.	*/
 
 #ifndef __LWIPOPTS_H__
 #define __LWIPOPTS_H__
 
 #ifdef DEBUG
-#define LWIP_PLATFORM_DIAG(args...) printf(args)
+#define LWIP_PLATFORM_DIAG(args...)   printf(args)
 #define LWIP_PLATFORM_ASSERT(args...) printf(args)
 #else
 #define LWIP_PLATFORM_DIAG(args...)
 #define LWIP_PLATFORM_ASSERT(args...)
 #endif
 
-/** 
+/**
  * NO_SYS==1: Provides VERY minimal functionality. Otherwise,
  * use lwIP facilities.
  */
-#define NO_SYS		1
+#define NO_SYS 1
 
 /**
  * MEM_SIZE: the size of the heap memory. If the application will send
  * a lot of data that needs to be copied, this should be set high.
  */
-#define MEM_SIZE	(TCP_MSS * 8)
+#define MEM_SIZE (TCP_MSS * 8)
 
 /*
    ------------------------------------
@@ -34,31 +34,31 @@
  * instead of the lwip internal allocator. Can save code size if you
  * already use it.
  */
-#define MEM_LIBC_MALLOC	1
+#define MEM_LIBC_MALLOC 1
 
 /* MEM_ALIGNMENT: should be set to the alignment of the CPU for which
    lwIP is compiled. 4 byte alignment -> define MEM_ALIGNMENT to 4, 2
    byte alignment -> define MEM_ALIGNMENT to 2. */
-#define MEM_ALIGNMENT		4
+#define MEM_ALIGNMENT 4
 
 /**
- * PBUF_POOL_SIZE: the number of buffers in the pbuf pool. 
+ * PBUF_POOL_SIZE: the number of buffers in the pbuf pool.
  */
-#define PBUF_POOL_SIZE		8
+#define PBUF_POOL_SIZE 8
 
 /* ---------- TCP options ---------- */
 /* Controls if TCP should queue segments that arrive out of
    order. Define to 0 if your device is low on memory. */
-#define TCP_QUEUE_OOSEQ         1
+#define TCP_QUEUE_OOSEQ 1
 
 /* TCP Maximum segment size. */
-#define TCP_MSS			1460
+#define TCP_MSS 1460
 
 /* TCP sender buffer space (bytes). */
-#define TCP_SND_BUF		(TCP_MSS*4)
+#define TCP_SND_BUF (TCP_MSS * 4)
 
 /* TCP receive window. */
-#define TCP_WND			8192
+#define TCP_WND 8192
 
 /* ---------- ARP options ---------- */
 /**
@@ -71,21 +71,21 @@
  * The peer *is* in the ARP table if it requested our address before.
  * Also notice that this slows down input processing of every IP packet!
  */
-#define ETHARP_TRUST_IP_MAC	1
+#define ETHARP_TRUST_IP_MAC 1
 
 /* ---------- DHCP options ---------- */
 #ifdef PS2IP_DHCP
 /**
  * LWIP_DHCP==1: Enable DHCP module.
  */
-#define LWIP_DHCP		1
+#define LWIP_DHCP 1
 #endif
 
 /* ---------- Statistics options ---------- */
 /**
  * LWIP_STATS==1: Enable statistics collection in lwip_stats.
  */
-#define LWIP_STATS	0
+#define LWIP_STATS 0
 
 /*
    ---------------------------------
@@ -95,7 +95,7 @@
 /**
  * LWIP_RAW==1: Enable application layer to hook into the IP layer itself.
  */
-#define LWIP_RAW	0
+#define LWIP_RAW 0
 
 /*
    --------------------------------------
@@ -106,7 +106,7 @@
  * LWIP_CHECKSUM_ON_COPY==1: Calculate checksum when copying data from
  * application buffers to pbufs.
  */
-#define LWIP_CHECKSUM_ON_COPY	1
+#define LWIP_CHECKSUM_ON_COPY 1
 
 /*
    ------------------------------------
@@ -116,7 +116,7 @@
 /**
  * LWIP_SOCKET==1: Enable Socket API (require to use sockets.c)
  */
-#define LWIP_SOCKET                     0
+#define LWIP_SOCKET 0
 
 /*
    ----------------------------------------------
@@ -127,7 +127,7 @@
 /**
  * LWIP_NETCONN==1: Enable Netconn API (require to use api_lib.c)
  */
-#define LWIP_NETCONN                    0
+#define LWIP_NETCONN 0
 
 /*
    ---------------------------------
@@ -137,7 +137,7 @@
 /**
  * LWIP_UDP==1: Turn on UDP.
  */
-#define LWIP_UDP                        0
+#define LWIP_UDP 0
 
 /*
    ----------------------------------
@@ -148,7 +148,7 @@
  * Use all DNS security features by default.
  * This is overridable but should only be needed by very small targets
  * or when using against non standard DNS servers. */
-#define LWIP_DNS_SECURE	0
+#define LWIP_DNS_SECURE 0
 
 /*
    ------------------------------------------------
@@ -164,7 +164,7 @@
  *
  * @todo: TCP and IP-frag do not work with this, yet:
  */
-#define LWIP_NETIF_TX_SINGLE_PBUF             1
+#define LWIP_NETIF_TX_SINGLE_PBUF 1
 
 /*
    ------------------------------------
@@ -178,6 +178,6 @@
  * ATTENTION: This is required when using lwIP from more than one context! If
  * you disable this, you must be sure what you are doing!
  */
-#define SYS_LIGHTWEIGHT_PROT            0
+#define SYS_LIGHTWEIGHT_PROT 0
 
 #endif /* __LWIPOPTS_H__ */
