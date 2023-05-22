@@ -68,6 +68,8 @@ DSNET is a collection of development tools that run on the development PC. Some 
 4. **DSICONS**:	IOP console monitor
 5. **DSECONS**:	EE console monitor
 
+> An open source DNSET toolset can be found [here](https://github.com/ps2dbg/dsnet)
+
 Variations of RDB
 -----------------
 
