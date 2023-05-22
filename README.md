@@ -1,40 +1,55 @@
 Retail DeBugging startup card README file	- 2017/06/10
 ------------------------------------------------------------
 
-What is the Retail DeBugging (RDB) startup card?
+### What is the Retail DeBugging (RDB) startup card?
+
 It is a clone of the Sony TDB startup card, which gives certain TEST/debugstation consoles (which support Magicgate) some DECI2 debugging functionality.
 
 Traditionally, development and debugging of games and software was entirely done on PlayStation 2 TOOL consoles,
 which are basically each a PlayStation 2 console and PC in one unit.
-Both entities are linked together through something known as the "PIF":
+Both entities are linked together through something known as the <b>PIF</b>
+  <p align="center">
+    The <b>PIF</b>:
+    <br />
+  </p>
 
 ```mermaid
-flowchart LR;
+flowchart TB;
+subgraph TOOL["TOOL"]
     subgraph PC[PC Side]
         DSNETM[DSNETM] ---|TCP/IP|CLIENT["Client(s)"]
     end
 
     subgraph PS2[PS2 Side];
-        EE[EE] ---|SIF2| IOP[IOP] ---|PIF|DSNETM
+        EE[EE] ---|SIF2| IOP[IOP]
     end
+    IOP---|PIF|PIF[" "]---|MRP|DSNETM
+end
 ```
+-------
 
 Retail consoles are essentially similar to debugstation consoles,
 except that their CD/DVD drive **MECHA**nics **CON**troller (MECHACON) chips don't accept master discs, but support MagicGate and DVD video discs fully.
 
-Since these consoles lack the TOOL unit's PIF, Sony substitutes it with a virtual interface that is known as the "TIF", which sends data over the network:
-
+Since these consoles lack the TOOL unit's <b>PIF</b>, Sony substitutes it with a virtual interface that is known as the <b>TIF</b>, which sends data over the network:
+  <p align="center">
+    The <b>TIF</b>:
+    <br />
+  </p>
+  
 ```mermaid
 flowchart LR;
+
     subgraph PC[PC]
         DSNETM[DSNETM] ---|TCP/IP|CLIENT["Client(s)"]
     end
 
     subgraph PS2[PS2];
-        EE[EE] ---|SIF2| IOP[IOP] ---|"TIF (TCP/IP)"|DSNETM
+        EE[EE] ---|SIF2| IOP---TIF["TIF (TCP/IP)"] ---DSNETM
     end
+    
 ```
-
+-------
 Unfortunately, like the debugstation, the retail set has a boot ROM that contains an `IOPBTCONF` [^IOPBTCONF] file that doesn't list the DECI2 modules.
  
 [^IOPBTCONF]: a list of modules to be loaded during every IOP reboot
