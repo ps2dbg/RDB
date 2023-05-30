@@ -1,2 +1,5 @@
 
 *.o
+thmon/irx/thmon.irx
+RDB-UIF/RDB-UIF.elf
+RDB/RDB.elf
