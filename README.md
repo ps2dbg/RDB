@@ -82,14 +82,14 @@ RDB-UIF	- a variation of RDB that has the network protocol stack and SMAP driver
 Limitations, which the TDB startup card also has:
 -------------------------------------------------
 
-1. The IOP cannot be rebooted at all, so functions like SifIopReboot() and SifIopReset() must not be used.
-2. LoadExecPS2() cannot be used, as it causes an IOP reset.
+1. The IOP cannot be rebooted at all, so functions like `SifIopReboot()` and `SifIopReset()` must not be used.
+2. `LoadExecPS2()` cannot be used, as it causes an IOP reset.
 3. The Ethernet port cannot be used, as it is used by RDB itself.
-	It is, however, still possible to use the HDD unit. DEV9.IRX will be automatically loaded by RDB.
+	It is, however, still possible to use the HDD unit. `DEV9.IRX` will be automatically loaded by RDB.
 4. *IOP-side debugging cannot be performed due to limitations in RDB's design. dsidb can still be run, but the IOP will cease to respond if a BREAK is issued.
-5. As DEV9.IRX is loaded, an expansion bay unit cannot be reset by pressing the RESET button once. If the button is held down, the console will be switched off.
+5. As `DEV9.IRX` is loaded, an expansion bay unit cannot be reset by pressing the RESET button once. If the button is held down, the console will be switched off.
 6. When the IOP is heavily loaded, dsedb may not respond well.
-7. *There is no support for IKTTY (i.e. Kprintf).
+7. *There is no support for IKTTY (i.e. `Kprintf`).
 
 *Does not apply to RDB-UIF.
 
@@ -108,32 +108,34 @@ Other features:
 1. EE kernel replacement:
 	By default, RDB uses your retail console's stock EE kernel. However, this kernel lacks the "EE thread extension",
 		which renders it unable to show information related to threading (e.g. thread and semaphore status).
-	By placing a replacment EE kernel (e.g. the one from the TDB startup card or a TOOL) as KERNEL.bin in the same location as RDB,
+	By placing a replacment EE kernel (e.g. the one from the TDB startup card or a TOOL) as `KERNEL.bin` in the same location as RDB,
 		RDB will use the substitute EE kernel instead.
 2. IOP kernel module replacement:
 	By default, RDB uses your retail console's stock IOP kernel modules.
 	By placing a replacment IOP kernel module image as IOPRP.img in the same location as RDB, RDB will use the substitute IOP kernel modules instead.
 3. Network configuration:
-	RDB retrieves your network configuration from mc:/SYS-CONF/IPCONFIG.DAT, which has this format:
+	RDB retrieves your network configuration from `mc?:/SYS-CONF/IPCONFIG.DAT`, which has this format:
+```
 		IP address
 		Subnet mask
 		Gateway
 		<optional: link speed and duplex mode: 10HDX, 10FDX, 100HDX,100FDX or AUTO. AUTO is the default if nothing is specified>
+```
 
 Supported boot device:
 ----------------------
-*Memory Card only
+* Memory Card only
 
 Note: while RDB will still boot from unsupported devices (i.e. USB disks), it will not be able to load replacement EE/IOP kernels.
 
 How to use RDB:
 ---------------
-1. Prepare your network configuration file (IPCONFIG.DAT).
+1. Prepare your network configuration file (`IPCONFIG.DAT`).
 2. Copy RDB to the desired place on your memory card.
-3. Download the DSNET tools, including DSNETM.
+3. Download the DSNET tools, including `DSNETM`.
 4. Connect your PS2 to your network/to your PC.
-5. Start DSNETM, specifying your PS2's IP address.
-6. Run other DECI2 tools. If DSEDB/DSIDB are run, remember to specify the "no reset" option (-nr).
+5. Start `DSNETM`, specifying your PS2's IP address.
+6. Run other DECI2 tools. If `DSEDB`/`DSIDB` are run, remember to specify the "no reset" option (-nr).
 
 Credits:
 --------
