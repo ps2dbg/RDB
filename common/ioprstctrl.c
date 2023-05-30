@@ -54,7 +54,7 @@ static void LoadIMGDRV(const void *image1, int size1, const void *image2, int si
 
     SifExecModuleBuffer(IMGDRV_irx_start, IMGDRV_irx_size, 0, NULL, NULL);
 }
-
+#if 0 //Commented out because this is a redefinition of whats found on https://github.com/ps2dev/ps2sdk/blob/master/ee/kernel/include/sifcmd.h#L75
 struct _iop_reset_pkt
 {
     struct t_SifCmdHeader header;
@@ -62,7 +62,7 @@ struct _iop_reset_pkt
     int mode;
     char arg[80];
 } __attribute__((aligned(16)));
-
+#endif
 /*--------------------------------------------------------------------------------------------------------------*/
 /* A function that creates and send IOP reset SIF DMA packets                                                   */
 /* containing commands to reset the IOP with a modified IOPRP image.                                            */
