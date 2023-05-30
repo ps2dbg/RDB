@@ -30,28 +30,28 @@ all:
 clean:
 	rm -f $(EE_BIN) $(EE_BIN_REL) $(EE_OBJS)
 
-DEV9_irx.o:
-	bin2o $(EE_GPVAL) $(PS2SDK)/iop/irx/ps2dev9.irx DEV9_irx.o DEV9_irx
+DEV9_irx.o: $(PS2SDK)/iop/irx/ps2dev9.irx
+	bin2o $(EE_GPVAL) $< $@ DEV9_irx
 
-IMGDRV_irx.o:
-	bin2o $(EE_GPVAL) imgdrv.irx IMGDRV_irx.o IMGDRV_irx
+IMGDRV_irx.o: imgdrv.irx
+	bin2o $(EE_GPVAL) $< $@ IMGDRV_irx
 
-NETMAN_irx.o:
-	bin2o $(EE_GPVAL) $(PS2SDK)/iop/irx/netman.irx NETMAN_irx.o NETMAN_irx
+NETMAN_irx.o: $(PS2SDK)/iop/irx/netman.irx
+	bin2o $(EE_GPVAL) $< $@ NETMAN_irx
 
-SMAP_irx.o:
-	bin2o $(EE_GPVAL) $(PS2SDK)/iop/irx/smap.irx SMAP_irx.o SMAP_irx
+SMAP_irx.o: $(PS2SDK)/iop/irx/smap.irx
+	bin2o $(EE_GPVAL) $< $@ SMAP_irx
 
-PS2IP_irx.o:
-	bin2o $(EE_GPVAL) $(PS2SDK)/iop/irx/ps2ip-nm.irx PS2IP_irx.o PS2IP_irx
+PS2IP_irx.o: $(PS2SDK)/iop/irx/ps2ip-nm.irx
+	bin2o $(EE_GPVAL) $< $@ PS2IP_irx
 
-DECI2_img.o:
-	bin2o $(EE_GPVAL) IOPRP.img DECI2_img.o DECI2_img
+DECI2_img.o: IOPRP.img
+	bin2o $(EE_GPVAL) $< $@ DECI2_img
 
-DRVTIF_irx.o:
-	bin2o $(EE_GPVAL) drvtif.irx DRVTIF_irx.o DRVTIF_irx
+DRVTIF_irx.o: drvtif.irx
+	bin2o $(EE_GPVAL) $< $@ DRVTIF_irx
 
-TIFINET_irx.o:
-	bin2o $(EE_GPVAL) tifinet.irx TIFINET_irx.o TIFINET_irx
+TIFINET_irx.o: tifinet.irx
+	bin2o $(EE_GPVAL) $< $@ TIFINET_irx
 
 include $(PS2SDK)/Defs.make

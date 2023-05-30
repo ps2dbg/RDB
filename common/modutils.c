@@ -10,7 +10,7 @@
 
 #define LF_PATH_MAX 252
 #define LF_ARG_MAX  252
-
+#if 0 // refdefinition of https://github.com/ps2dev/ps2sdk/blob/master/common/include/loadfile-common.h#L32
 enum _lf_functions {
     LF_F_MOD_LOAD = 0,
     LF_F_ELF_LOAD,
@@ -29,6 +29,7 @@ enum _lf_functions {
     LF_F_SEARCH_MOD_BY_NAME,
     LF_F_SEARCH_MOD_BY_ADDRESS,
 };
+#endif
 
 struct _lf_module_load_arg
 {

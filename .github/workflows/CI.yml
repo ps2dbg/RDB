@@ -1,0 +1,85 @@
+name: Automated Compilation
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ps2dev/ps2dev:v1.0
+    steps:
+
+    - name: Install dependencies
+      run: |
+        apk add make git zip
+
+    - uses: actions/checkout@v3
+    - run: |
+        git config --global --add safe.directory "$GITHUB_WORKSPACE"
+        git fetch --prune --unshallow
+
+
+    - name: Compile RDB
+      run: |
+        cd RDB
+        make clean all
+        
+    - name: Compile RDB (Universal InterFace)
+      run: |
+        cd RDB-UIF
+        make clean all
+
+    - name: Compile Thread Monitor
+      run: |
+        cd thmon
+        make clean all
+
+    - name: Get Version
+      if: startsWith(github.ref, 'refs/tags/v')
+      id: ver
+      run: | 
+        echo "VERTAG=$(echo -${GITHUB_REF#refs/tags/})" >> $GITHUB_ENV
+
+    - name: Get branch
+      id: brnch
+      run: | 
+          echo "BRANCH=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+
+    - name: Get short SHA
+      id: slug
+      run: | 
+          echo "SHA8=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_ENV
+
+    - name: pack files
+      run: |
+        zip -q -j -9 ${{ github.event.repository.name }}${{ env.VERTAG }}.zip RDB-UIF/RDB-UIF.elf RDB/RDB.elf thmon/thmon.irx LICENSE CHANGELOG.md README.md
+
+    - name: Create release
+      if: startsWith(github.ref, 'refs/tags/v')
+      uses: marvinpinto/action-automatic-releases@latest
+      with:
+       repo_token: "${{ secrets.GITHUB_TOKEN }}"
+       prerelease: "${{ contains(github.ref, '-rc') }}"
+       title: "Retail Debugging Startup Card ${{ env.VERTAG }}"
+       files: |
+          ${{ github.event.repository.name }}${{ env.VERTAG }}.zip
+
+    - name: Create prerelease
+      if: github.ref == 'refs/heads/main'
+      uses: marvinpinto/action-automatic-releases@latest
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        prerelease: true
+        automatic_release_tag: "latest"
+        title: "Retail Debugging Startup Card Nightly Build"
+        files: |
+          ${{ github.event.repository.name }}${{ env.VERTAG }}.zip
+
+    - name: Upload artifacts
+      if: ${{ success() }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ github.event.repository.name }}-${{ env.SHA8 }}-${{ env.BRANCH }}
+        path: |
+          ${{ github.event.repository.name }}${{ env.VERTAG }}.zip

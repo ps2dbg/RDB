@@ -28,9 +28,9 @@ static short int ConsoleRegion = -1, ConsoleOSDRegion = -1, ConsoleOSDLanguage =
 static short int ConsoleOSDRegionInitStatus = 0, ConsoleRegionParamInitStatus = 0; // 0 = Not init. 1 = Init complete. <0 = Init failed.
 static unsigned char ConsoleRegionData[16] = {0, 0, 0xFF, 0xFF, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-extern int (*_ps2sdk_close)(int) __attribute__((section("data")));
-extern int (*_ps2sdk_open)(const char *, int) __attribute__((section("data")));
-extern int (*_ps2sdk_read)(int, void *, int) __attribute__((section("data")));
+//extern int (*_ps2sdk_close)(int) __attribute__((section("data")));
+//extern int (*_ps2sdk_open)(const char *, int) __attribute__((section("data")));
+//extern int (*_ps2sdk_read)(int, void *, int) __attribute__((section("data")));
 
 static int GetConsoleRegion(void);
 static int GetOSDRegion(void);

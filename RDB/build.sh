@@ -4,7 +4,7 @@ echo "Generating IOPRP image..."
 
 export RDB_DIR=$PWD
 export MODULE_DIR=$PWD/../modules
-export ROMIMG_DIR=$PWD/../../tools/ROMIMG
+export ROMIMG_DIR=$PWD/../tools/ROMIMG
 
 make clean --silent
 
