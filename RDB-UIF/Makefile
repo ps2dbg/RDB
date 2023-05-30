@@ -30,16 +30,16 @@ all:
 clean:
 	rm -f $(EE_BIN) $(EE_BIN_REL) $(EE_OBJS)
 
-DECI2_img.o:
-	bin2o $(EE_GPVAL) IOPRP.img DECI2_img.o DECI2_img
+DECI2_img.o: IOPRP.img
+	bin2o $(EE_GPVAL) $< $@ DECI2_img
 
-DEV9_irx.o:
-	bin2o $(EE_GPVAL) $(PS2SDK)/iop/irx/ps2dev9.irx DEV9_irx.o DEV9_irx
+DEV9_irx.o: $(PS2SDK)/iop/irx/ps2dev9.irx
+	bin2o $(EE_GPVAL) $< $@ DEV9_irx
 
-IMGDRV_irx.o:
-	bin2o $(EE_GPVAL) imgdrv.irx IMGDRV_irx.o IMGDRV_irx
+IMGDRV_irx.o: imgdrv.irx
+	bin2o $(EE_GPVAL) $< $@ IMGDRV_irx
 
-DECI2DRU_irx.o:
-	bin2o $(EE_GPVAL) deci2dru.irx DECI2DRU_irx.o DECI2DRU_irx
+DECI2DRU_irx.o: deci2dru.irx
+	bin2o $(EE_GPVAL) $< $@ DECI2DRU_irx
 
 include $(PS2SDK)/Defs.make
